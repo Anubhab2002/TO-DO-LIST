@@ -3,7 +3,7 @@
 //when user enters a task then task is added to the local storage
 let addbtn = document.getElementById("addbtn");
 addbtn.addEventListener("click", function () {
-    let notes = localStorage.getItem("notes");
+    let notes = sessionStorage.getItem("notes");
     if (notes === null) {
         notes_arr = [];
     }
@@ -11,13 +11,13 @@ addbtn.addEventListener("click", function () {
         notes_arr = JSON.parse(notes);
     }
     notes_arr.push(document.getElementById("addtxt").value);
-    localStorage.setItem("notes", JSON.stringify(notes_arr));
+    sessionStorage.setItem("notes", JSON.stringify(notes_arr));
     document.getElementById("addtxt").value = "";
 
     console.log(notes_arr);
 });
 addbtn.addEventListener("click", function () {
-    let dates = localStorage.getItem("dates");
+    let dates = sessionStorage.getItem("dates");
     if (dates === null) {
         dates_arr = [];
     }
@@ -25,7 +25,7 @@ addbtn.addEventListener("click", function () {
         dates_arr = JSON.parse(dates);
     }
     dates_arr.push(document.getElementById("deadline").value);
-    localStorage.setItem("dates", JSON.stringify(dates_arr));
+    sessionStorage.setItem("dates", JSON.stringify(dates_arr));
     document.getElementById("deadline").value = "";
 
     console.log(dates_arr);
@@ -37,8 +37,8 @@ let html = ``;
 // then parse them into the array format
 // traverse on the notes array 
 // create a card on the view task section and then display the note and the deadline on the task setup
-let notes = JSON.parse(localStorage.getItem("notes"));
-let dates = JSON.parse(localStorage.getItem("dates"));
+let notes = JSON.parse(sessionStorage.getItem("notes"));
+let dates = JSON.parse(sessionStorage.getItem("dates"));
 
 for (let i = 0; i < notes.length; i++) {
     // let card = document.getElementById("showCard");
@@ -69,19 +69,19 @@ document.getElementById("tasks").innerHTML = html;
 function delete_task(id) {
     document.getElementById("showCard_" + id).remove();
 
-    let notes = JSON.parse(localStorage.getItem("notes"));
-    let dates = JSON.parse(localStorage.getItem("dates"));
+    let notes = JSON.parse(sessionStorage.getItem("notes"));
+    let dates = JSON.parse(sessionStorage.getItem("dates"));
 
     notes.splice(id,1);
     dates.splice(id,1);
 
-    localStorage.setItem("notes", JSON.stringify(notes));
-    localStorage.setItem("dates", JSON.stringify(dates));
+    sessionStorage.setItem("notes", JSON.stringify(notes));
+    sessionStorage.setItem("dates", JSON.stringify(dates));
     location.reload();
 
 }
 
-notes = JSON.parse(localStorage.getItem("notes"));
+notes = JSON.parse(sessionStorage.getItem("notes"));
 if(notes.length===0)
 {
     document.getElementById("tasks").innerText=`NO TASKS TO SHOW!! USE "ADD YOUR TASK HERE TO ADD NOW"`;
